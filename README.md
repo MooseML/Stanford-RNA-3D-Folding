@@ -114,6 +114,4 @@ contains:
 **Maintainer:** *Matt Graham*
 **Last Updated:** May 2025
 
-```
-
 ---
