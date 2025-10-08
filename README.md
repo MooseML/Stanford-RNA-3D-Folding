@@ -25,44 +25,44 @@ It automates dataset preparation, model inference, and result aggregation into t
 ## Pipeline Overview
 
 1. **Generate YAML Inputs**
-   ```python
-   from generate_yaml_inputs import generate_yaml_inputs
-   generate_yaml_inputs(
-       csv_path="/kaggle/input/stanford-rna-3d-folding/test_sequences.csv",
-       output_dir="/kaggle/working/inputs_prediction",
-   )
-````
+    ```python
+    from generate_yaml_inputs import generate_yaml_inputs
+    generate_yaml_inputs(
+        csv_path="/kaggle/input/stanford-rna-3d-folding/test_sequences.csv",
+        output_dir="/kaggle/working/inputs_prediction",
+    )
+    ```
 
 Converts the test sequences CSV into Boltz-compatible `.yaml` input files.
 
 2. **Run Model Inference**
 
-   ```python
-   !python inference.py
-   ```
+    ```bash
+    !python inference.py
+    ```
 
-   or (in notebook form)
+    or (in notebook form)
 
-   ```python
-   from execute_inference import run_inference_script
-   result = run_inference_script("python", "inference.py")
-   ```
+    ```python
+    from execute_inference import run_inference_script
+    result = run_inference_script("python", "inference.py")
+    ```
 
-   Uses `inference.py` to:
+    Uses `inference.py` to:
 
-   * Download Boltz-1 model & CCD dictionary
-   * Preprocess inputs (FASTA/YAML -> MSA -> NPZ)
-   * Run structure prediction with `Boltz1`
-   * Save predicted 3D structures + confidence metrics
+    * Download Boltz-1 model & CCD dictionary
+    * Preprocess inputs (FASTA/YAML -> MSA -> NPZ)
+    * Run structure prediction with `Boltz1`
+    * Save predicted 3D structures + confidence metrics
 
 3. **Gather Results**
 
-   ```python
-   from gather_results import aggregate_predictions
-   aggregate_predictions()
-   ```
+    ```python
+    from gather_results import aggregate_predictions
+    aggregate_predictions()
+    ```
 
-   Reads the predicted `.cif` and confidence `.json` files, extracts **C1′ coordinates**, ranks models by confidence, and populates the official competition `submission.csv`.
+    Reads the predicted `.cif` and confidence `.json` files, extracts **C1′ coordinates**, ranks models by confidence, and populates the official competition `submission.csv`.
 
 ---
 
